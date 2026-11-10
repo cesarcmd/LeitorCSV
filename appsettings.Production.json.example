@@ -1,0 +1,9 @@
+{
+  "AllowedHosts": "leitorcsv.exemplo.gov.br",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}

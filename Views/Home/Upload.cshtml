@@ -1,48 +1,86 @@
-﻿
+@model System.Data.DataTable
+@using System.Data
 @{
-    ViewData["Title"] = "Upload";
+    ViewData["Title"] = "Ler um CSV";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Upload</h1>
+<section class="upload-page">
+    <div class="container upload-container">
+        <a class="back-link" asp-controller="Home" asp-action="Index"><span aria-hidden="true">←</span> Voltar ao início</a>
 
-@model System.Data.DataTable
-@using System.Data;
-<h2>Enviar Arquivo</h2>
-@using (Html.BeginForm(
-"Upload", "Home", null, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-    <div class="form-group">
-        <input type="file" id="dataFile" name="upload" class="form-control" />
+        <div class="upload-heading">
+            <p class="eyebrow">Importar dados</p>
+            <h1>Selecione um arquivo CSV</h1>
+            <p>O arquivo será validado e exibido aqui mesmo. Ele não é armazenado.</p>
+        </div>
+
+        @using (Html.BeginForm("Upload", "Home", null, FormMethod.Post, true, new { enctype = "multipart/form-data", id = "upload-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @if (!ViewData.ModelState.IsValid)
+            {
+                @Html.ValidationSummary(false, "Não foi possível processar o arquivo.", new { @class = "validation-summary", role = "alert" })
+            }
+
+            <div class="upload-card">
+                <label for="dataFile" id="upload-dropzone" class="upload-dropzone">
+                    <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m8 8 4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                    </span>
+                    <span class="upload-title">Arraste seu arquivo para cá</span>
+                    <span class="upload-subtitle">ou <strong>escolha um arquivo</strong> no seu computador</span>
+                    <input type="file" id="dataFile" name="upload" accept=".csv,text/csv" required />
+                    <span id="file-name" class="file-name" aria-live="polite">Nenhum arquivo selecionado</span>
+                </label>
+
+                <div class="upload-guidelines" aria-label="Requisitos do arquivo">
+                    <span><b>CSV</b> UTF-8</span>
+                    <span><b>2 MB</b> no máximo</span>
+                    <span><b>5.000</b> linhas</span>
+                    <span><b>50</b> colunas</span>
+                </div>
+
+                <button id="submit-upload" type="submit" class="btn btn-primary btn-lg upload-button">Ler arquivo <span aria-hidden="true">→</span></button>
+            </div>
+        }
+
+        @if (Model != null)
+        {
+            <section class="results-section" aria-labelledby="results-title">
+                <div class="results-heading">
+                    <div>
+                        <p class="eyebrow"><span class="success-dot"></span> Arquivo processado</p>
+                        <h2 id="results-title">Dados importados</h2>
+                    </div>
+                    <p class="results-count">@Model.Rows.Count registro@(Model.Rows.Count == 1 ? "" : "s") · @Model.Columns.Count coluna@(Model.Columns.Count == 1 ? "" : "s")</p>
+                </div>
+                <div class="table-card" tabindex="0">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    @foreach (DataColumn col in Model.Columns)
+                                    {
+                                        <th scope="col">@col.ColumnName</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        @foreach (DataColumn col in Model.Columns)
+                                        {
+                                            <td>@row[col.ColumnName]</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        }
     </div>
-    <br />
-    <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-primary" />
-    </div>
-    if (Model != null)
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    @foreach (DataColumn col in Model.Columns)
-                    {
-                        <th>@col.ColumnName</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (DataRow row in Model.Rows)
-                {
-                    <tr>
-                        @foreach (DataColumn col in Model.Columns)
-                        {
-                            <td>@row[col.ColumnName]</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-}
+</section>

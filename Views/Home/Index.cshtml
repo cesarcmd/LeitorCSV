@@ -1,12 +1,84 @@
-﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Leia seus CSVs com clareza";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h2>Enviando e Lendo Arquivos CSV</h2>
-    <hr />
-    <p>Um arquivo CSV é um arquivo texto delimitado que utiliza a vírgulas para separar os valores existentes no arquivo, sendo que existem implementações onde outros separadores também podem ser usados.</p>
-    <p>Neste exemplo, mostro como fazer o upload e como importar arquivos CSV no formato padrão (delimitados por vírgula) em uma aplicação ASP .NET MVC,  e,  em seguida ler o conteúdo do arquivo CSV enviado exibindo o seu conteúdo na página web.</p>
-</div>
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Projeto de estudo · ASP.NET Core</p>
+            <h1>Transforme um arquivo CSV em uma tabela <em>em segundos.</em></h1>
+            <p class="hero-description">Envie um arquivo e visualize seus dados de forma simples, segura e sem salvar nada no servidor.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary btn-lg" href="/Home/Upload">Selecionar arquivo <span aria-hidden="true">→</span></a>
+                <a class="text-link" href="#como-funciona">Como funciona <span aria-hidden="true">↓</span></a>
+            </div>
+            <ul class="trust-list" aria-label="Características do LeitorCSV">
+                <li><span aria-hidden="true">✓</span> Sem cadastro</li>
+                <li><span aria-hidden="true">✓</span> Dados não persistidos</li>
+                <li><span aria-hidden="true">✓</span> Até 2 MB por arquivo</li>
+            </ul>
+        </div>
+
+        <div class="hero-preview" aria-hidden="true">
+            <div class="preview-window">
+                <div class="preview-bar"><span></span><span></span><span></span><p>relatorio.csv</p></div>
+                <div class="preview-body">
+                    <div class="preview-label">PRÉ-VISUALIZAÇÃO</div>
+                    <div class="preview-table">
+                        <div class="preview-row preview-head"><b>Nome</b><b>Setor</b><b>Status</b></div>
+                        <div class="preview-row"><span>Ana Martins</span><span>Produtos</span><i>Ativo</i></div>
+                        <div class="preview-row"><span>João Silva</span><span>Operações</span><i>Ativo</i></div>
+                        <div class="preview-row"><span>Maria Costa</span><span>Design</span><i>Ativo</i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-chip chip-top"><span>✓</span> CSV validado</div>
+            <div class="floating-chip chip-bottom"><span>↗</span> Visualização pronta</div>
+        </div>
+    </div>
+</section>
+
+<section id="como-funciona" class="steps-section">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow">Fluxo simples</p>
+            <h2>Do arquivo à visualização em três passos</h2>
+            <p>Sem configuração e sem etapas desnecessárias.</p>
+        </div>
+        <div class="steps-grid">
+            <article class="step-card">
+                <span class="step-number">01</span>
+                <span class="step-icon" aria-hidden="true">↑</span>
+                <h3>Envie seu CSV</h3>
+                <p>Escolha um arquivo UTF-8, separado por vírgulas e com cabeçalho na primeira linha.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-number">02</span>
+                <span class="step-icon" aria-hidden="true">✓</span>
+                <h3>Validamos o formato</h3>
+                <p>Verificamos tamanho, estrutura, quantidade de colunas e limites de segurança.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-number">03</span>
+                <span class="step-icon" aria-hidden="true">▦</span>
+                <h3>Leia os dados</h3>
+                <p>Se estiver tudo certo, os registros aparecem em uma tabela organizada na mesma página.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="format-section">
+    <div class="container format-card">
+        <div>
+            <p class="eyebrow">Formato esperado</p>
+            <h2>Seu CSV precisa de cabeçalhos e vírgulas.</h2>
+            <p>Exemplo: a primeira linha identifica as colunas; as demais trazem os dados.</p>
+            <a class="text-link" asp-controller="Home" asp-action="Upload">Experimentar agora <span aria-hidden="true">→</span></a>
+        </div>
+        <pre aria-label="Exemplo de arquivo CSV"><code><span>Nome,Idade,Cidade</span>
+Ana,29,Manaus
+Bruno,34,Belém</code></pre>
+    </div>
+</section>

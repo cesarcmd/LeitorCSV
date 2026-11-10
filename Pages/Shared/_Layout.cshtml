@@ -1,44 +1,49 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LeitorCSV</title>
+    <meta name="theme-color" content="#0f766e" />
+    <title>@ViewData["Title"] · LeitorCSV</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LeitorCSV.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg" aria-label="Navegação principal">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">LeitorCSV</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="brand" asp-controller="Home" asp-action="Index" aria-label="LeitorCSV, página inicial">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h11l5 5v13H4z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+                    </span>
+                    <span>Leitor<span>CSV</span></span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Upload">Upload</a>
-                        </li>
+
+                <div id="main-navigation" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Início</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-cta" asp-controller="Home" asp-action="Upload">Ler um CSV <span aria-hidden="true">→</span></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - LeitorCSV - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <main id="main-content" role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p><strong>LeitorCSV</strong> · Projeto educacional em ASP.NET Core.</p>
+            <a asp-area="" asp-page="/Privacy">Privacidade</a>
         </div>
     </footer>
 
